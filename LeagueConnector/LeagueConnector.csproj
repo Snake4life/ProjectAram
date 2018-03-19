@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5C615560-1FD0-4CFC-AD62-D0A5B904483C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LeagueConnector</RootNamespace>
+    <AssemblyName>LeagueConnector</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="websocket-sharp, Version=1.0.2.59611, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebSocketSharp.1.0.3-rc11\lib\websocket-sharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Api\DataStore.cs" />
+    <Compile Include="Api\LolGameData.cs" />
+    <Compile Include="Api\LolLogin.cs" />
+    <Compile Include="Api\LolMatchmaking.cs" />
+    <Compile Include="Api\LolPerks.cs" />
+    <Compile Include="Api\LolSummoner.cs" />
+    <Compile Include="Api\RiotClient.cs" />
+    <Compile Include="Api\RsoAuth.cs" />
+    <Compile Include="Enum\EChampSelectPhaze.cs" />
+    <Compile Include="Enum\EReadyCheckState.cs" />
+    <Compile Include="Enum\EReadyCheckPlayerResponse.cs" />
+    <Compile Include="Methods.cs" />
+    <Compile Include="Api\BaseApi.cs" />
+    <Compile Include="Api\LolLobby.cs" />
+    <Compile Include="Connection.cs" />
+    <Compile Include="Enum\EPlayerType.cs" />
+    <Compile Include="Events\EogStatsEvent.cs" />
+    <Compile Include="Models\Json\EogStatsBlock.cs" />
+    <Compile Include="Models\Json\PostSession.cs" />
+    <Compile Include="Static\Endpoints.cs" />
+    <Compile Include="Enum\EBasicAccept.cs" />
+    <Compile Include="Enum\ERmsState.cs" />
+    <Compile Include="Enum\ERunes.cs" />
+    <Compile Include="Enum\ESocketEventType.cs" />
+    <Compile Include="Events\ChampSelectSessionEvent.cs" />
+    <Compile Include="Events\ConnectionChangedEvent.cs" />
+    <Compile Include="Events\NewInvitationsEvent.cs" />
+    <Compile Include="Events\ReadyCheckEvent.cs" />
+    <Compile Include="Events\RmsStateChangedEvent.cs" />
+    <Compile Include="Events\WebsocketEventBase.cs" />
+    <Compile Include="Exceptions\NotConnectedException.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="League.cs" />
+    <Compile Include="Models\Json\Authorization.cs" />
+    <Compile Include="Models\Json\ChampSelectSession.cs" />
+    <Compile Include="Models\Json\ReadyCheck.cs" />
+    <Compile Include="Models\Json\ReceivedInvitation.cs" />
+    <Compile Include="Models\Json\RunePage.cs" />
+    <Compile Include="Models\Json\Session.cs" />
+    <Compile Include="Models\Json\Summoner.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

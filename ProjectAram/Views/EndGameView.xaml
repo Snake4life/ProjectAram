@@ -1,0 +1,195 @@
+﻿<UserControl
+    x:Class="ProjectAram.Views.EndGameView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cal="http://www.caliburnproject.org"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:converters="clr-namespace:ProjectAram.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ProjectAram.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:ProjectAram.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:EndGameViewModel,
+                                     IsDesignTimeCreatable=True}"
+    mc:Ignorable="d">
+    <DockPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.Background>
+                <ImageBrush ImageSource="{Binding BackgroundImage, Converter={StaticResource NullImageConverter}}" Stretch="UniformToFill" />
+            </Grid.Background>
+            <DockPanel Grid.Row="0">
+                <DataGrid
+                    Margin="75,50,75,50"
+                    IsReadOnly="False"
+                    ItemsSource="{Binding Path=Players, Mode=OneWay}"
+                    Opacity="0.9"
+                    SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}"
+                    Style="{DynamicResource MetroDataGridEx}">
+                    <DataGrid.Resources>
+                        <converters:KdaConverter x:Key="KdaConverter" />
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="50"
+                            MinWidth="50"
+                            MaxWidth="75"
+                            Binding="{Binding Level, Mode=OneWay}"
+                            Header="LVL" />
+                        <DataGridTemplateColumn
+                            Width="30"
+                            MinWidth="30"
+                            MaxWidth="30"
+                            CanUserReorder="False"
+                            CanUserResize="False"
+                            CanUserSort="False">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image
+                                        Width="30"
+                                        Height="30"
+                                        Source="{Binding ChampionIcon, Converter={StaticResource NullImageConverter}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn
+                            Width="125"
+                            MinWidth="50"
+                            MaxWidth="200"
+                            Binding="{Binding SummonerName, Mode=OneWay}"
+                            Header="Summoner">
+                            <DataGridTextColumn.CellStyle>
+                                <Style BasedOn="{StaticResource MetroDataGridCell}" TargetType="{x:Type DataGridCell}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Team}" Value="100">
+                                            <Setter Property="Background" Value="Chartreuse" />
+                                            <Setter Property="Foreground" Value="{DynamicResource WindowBackgroundBrush}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Team}" Value="200">
+                                            <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
+                                        </DataTrigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Opacity" Value="0.8" />
+                                        </Trigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsMouseOver}" Value="true">
+                                            <Setter Property="Opacity" Value="0.8" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            Width="55"
+                            MinWidth="55"
+                            MaxWidth="100"
+                            Binding="{Binding Wins, Mode=OneWay}"
+                            Header="W" />
+                        <DataGridTextColumn
+                            Width="55"
+                            MinWidth="55"
+                            MaxWidth="100"
+                            Binding="{Binding Losses, Mode=OneWay}"
+                            Header="L" />
+                        <DataGridTextColumn
+                            Width="55"
+                            MinWidth="55"
+                            MaxWidth="100"
+                            Header="WR">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding
+                                    Converter="{StaticResource WinrateConverter}"
+                                    Mode="OneWay"
+                                    StringFormat="{}{0}%">
+                                    <Binding Path="Wins" />
+                                    <Binding Path="Losses" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            Width="60"
+                            MinWidth="60"
+                            MaxWidth="100"
+                            Header="KDA">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding
+                                    Converter="{StaticResource KdaConverter}"
+                                    Mode="OneWay"
+                                    StringFormat="{}{0}">
+                                    <Binding Path="Kills" />
+                                    <Binding Path="Deaths" />
+                                    <Binding Path="Assists" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            Width="40"
+                            MinWidth="40"
+                            MaxWidth="60"
+                            Binding="{Binding Kills, Mode=OneWay}"
+                            Foreground="Chartreuse"
+                            Header="K" />
+                        <DataGridTextColumn
+                            Width="40"
+                            MinWidth="40"
+                            MaxWidth="60"
+                            Binding="{Binding Deaths, Mode=OneWay}"
+                            Header="D">
+                            <DataGridTextColumn.CellStyle>
+                                <Style BasedOn="{StaticResource MetroDataGridCell}" TargetType="{x:Type DataGridCell}">
+                                    <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Foreground" Value="White" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            Width="40"
+                            MinWidth="40"
+                            MaxWidth="60"
+                            Binding="{Binding Assists, Mode=OneWay}"
+                            Foreground="DeepSkyBlue"
+                            Header="A" />
+                        <DataGridTextColumn
+                            Width="90"
+                            MinWidth="90"
+                            MaxWidth="150"
+                            Binding="{Binding TotalDamageToChampions, Mode=OneWay}"
+                            Header="DMG" />
+                        <DataGridTextColumn
+                            Width="55"
+                            MinWidth="55"
+                            MaxWidth="100"
+                            Binding="{Binding Leaves, Mode=OneWay}"
+                            Header="LV" />
+                        <DataGridTextColumn
+                            Width="50"
+                            MinWidth="50"
+                            MaxWidth="100"
+                            Binding="{Binding GamesPlayedWithHim, TargetNullValue=?, Mode=OneWay}"
+                            Header="GWH" />
+                        <DataGridTextColumn
+                            Width="100"
+                            MinWidth="100"
+                            MaxWidth="200"
+                            Binding="{Binding Note, Mode=TwoWay}"
+                            Header="Note"
+                            IsReadOnly="False">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="50" />
+                                    <Setter Property="cal:Message.Attach" Value="[Event LostFocus] = [Action NoteEdit($dataContext)]" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>
+

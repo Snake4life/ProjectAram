@@ -1,0 +1,91 @@
+﻿<UserControl
+    x:Class="ProjectAram.Views.PreGameView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cal="http://www.caliburnproject.org"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ProjectAram.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:ProjectAram.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:PreGameViewModel}"
+    mc:Ignorable="d">
+    <DockPanel>
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="{Binding BackgroundImage, Converter={StaticResource NullImageConverter}}" Stretch="UniformToFill" />
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0">
+                <DataGrid
+                    Margin="75,50,75,50"
+                    ItemsSource="{Binding Path=Players}"
+                    Opacity="0.9"
+                    Style="{DynamicResource MetroDataGridEx}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="100"
+                            MinWidth="100"
+                            MaxWidth="200"
+                            Binding="{Binding SummonerId, TargetNullValue=?}"
+                            Header="ID">
+                            <DataGridTextColumn.CellStyle>
+                                <Style BasedOn="{StaticResource MetroDataGridCell}" TargetType="{x:Type DataGridCell}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Team}" Value="1">
+                                            <Setter Property="Background" Value="Chartreuse" />
+                                            <Setter Property="Foreground" Value="{DynamicResource WindowBackgroundBrush}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Team}" Value="2">
+                                            <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
+                                        </DataTrigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Opacity" Value="0.8" />
+                                        </Trigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsMouseOver}" Value="true">
+                                            <Setter Property="Opacity" Value="0.8" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            Width="135"
+                            MinWidth="100"
+                            MaxWidth="200"
+                            Binding="{Binding SummonerName, TargetNullValue=?}"
+                            Header="Summoner" />
+                        <DataGridTextColumn
+                            Width="50"
+                            MinWidth="50"
+                            MaxWidth="80"
+                            Binding="{Binding GamesPlayedWithHim, TargetNullValue=?}"
+                            Header="GWH" />
+                        <DataGridTextColumn
+                            Width="100"
+                            MinWidth="100"
+                            MaxWidth="200"
+                            Binding="{Binding Note}"
+                            Header="Note" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+            <DockPanel Grid.Row="1">
+                <StackPanel
+                    Margin="20,0,20,10"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        cal:Message.Attach="LeaveGame()"
+                        controls:ControlsHelper.ContentCharacterCasing="Upper"
+                        BorderBrush="{DynamicResource AccentColorBrush}"
+                        Content="Leave lobby"
+                        Style="{DynamicResource SquareButtonStyle}" />
+                </StackPanel>
+            </DockPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>
